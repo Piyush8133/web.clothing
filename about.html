@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About Us – Dehra Fashion Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#111827;--navy-900:#0B0F1A;--amber:#F59E0B;--white:#FFFFFF;--cream:#FAF7F1;
+    --ink-soft:#5B6472;--line:#ECE7DD;--ff-display:'Poppins',sans-serif;--ff-body:'Montserrat',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--ff-body);color:var(--navy);background:var(--cream);}
+  a{text-decoration:none;color:inherit;}
+  .site-header{background:#fff;border-bottom:1px solid var(--line);}
+  .header-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1240px;margin:0 auto;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--ff-display);font-weight:800;font-size:19px;}
+  .logo-mark{width:36px;height:36px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--amber);}
+  .logo span{color:var(--amber);}
+  .icon-btn{padding:8px 14px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:13px;font-weight:700;}
+
+  .banner{background:var(--navy);color:#fff;padding:64px 28px;text-align:center;}
+  .banner h1{font-family:var(--ff-display);font-size:36px;margin:0 0 12px;}
+  .banner h1 em{color:var(--amber);font-style:normal;}
+  .banner p{color:#C7CCD6;max-width:600px;margin:0 auto;line-height:1.7;font-size:15px;}
+  .container{max-width:1040px;margin:42px auto;padding:0 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .pillar{background:#fff;padding:28px;border-radius:18px;border:1px solid var(--line);}
+  .pillar h3{font-family:var(--ff-display);font-size:18px;margin:0 0 10px;}
+  .pillar p{font-size:13.5px;color:var(--ink-soft);line-height:1.65;margin:0;}
+
+  @media(max-width:780px){.container{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-bar">
+    <a href="index.html" class="logo"><span class="logo-mark">DF</span>Dehra <span>Fashion</span> Hub</a>
+    <a href="shop.html" class="icon-btn">Explore Store</a>
+  </div>
+</header>
+
+<section class="banner">
+  <h1>Born in the Foothills of <em>Dehradun</em></h1>
+  <p>Founded on Rajpur Road, Dehra Fashion Hub bridges Uttarakhand’s artisanal weaving traditions with clean, modern silhouettes built for every season.</p>
+</section>
+
+<div class="container">
+  <div class="pillar">
+    <h3>Natural Himalayan Fabrics</h3>
+    <p>We partner directly with handloom clusters across Uttarakhand and North India for pure linen, merino wool, and organic mulmul cotton.</p>
+  </div>
+  <div class="pillar">
+    <h3>Same-Day Doon Logistics</h3>
+    <p>Every online order placed before 4 PM is dispatched directly from our Jakhan studio for doorstep delivery across Dehradun the very same evening.</p>
+  </div>
+  <div class="pillar">
+    <h3>Tailored for All Seasons</h3>
+    <p>From breezy summer co-ords for Rishikesh getaways to quilted winter layers for Mussoorie weekends, every garment is tested for local comfort.</p>
+  </div>
+</div>
+</body>
+</html>
