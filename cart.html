@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shopping Bag – Dehra Fashion Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#111827;--navy-900:#0B0F1A;--amber:#F59E0B;--red:#EF4444;
+    --white:#FFFFFF;--cream:#FAF7F1;--ink-soft:#5B6472;--line:#ECE7DD;
+    --shadow-md:0 12px 30px rgba(17,24,39,.10);--ff-display:'Poppins',sans-serif;--ff-body:'Montserrat',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--ff-body);color:var(--navy);background:var(--cream);}
+  a{text-decoration:none;color:inherit;}
+  button,input{font-family:inherit;}
+  .site-header{background:#fff;border-bottom:1px solid var(--line);}
+  .header-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1240px;margin:0 auto;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--ff-display);font-weight:800;font-size:19px;}
+  .logo-mark{width:36px;height:36px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--amber);}
+  .logo span{color:var(--amber);}
+  .icon-btn{padding:8px 14px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:13px;font-weight:700;}
+
+  .container{max-width:1120px;margin:32px auto;padding:0 28px;}
+  .cart-grid{display:grid;grid-template-columns:1.4fr .8fr;gap:28px;align-items:start;}
+  .panel{background:#fff;border-radius:20px;padding:28px;box-shadow:var(--shadow-md);}
+  .cart-item{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);}
+  .cart-item:last-child{border-bottom:none;}
+  .qty-ctrl{display:flex;align-items:center;gap:10px;}
+  .qty-btn{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--line);background:#fff;font-weight:700;cursor:pointer;}
+  .sum-row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:12px;}
+  .sum-total{display:flex;justify-content:space-between;font-family:var(--ff-display);font-size:18px;font-weight:800;border-top:1px solid var(--line);padding-top:14px;margin-top:14px;}
+  .promo-box{display:flex;gap:8px;margin:16px 0;}
+  .promo-box input{flex:1;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:13px;}
+  .btn-dark{padding:10px 16px;border-radius:10px;border:none;background:var(--navy);color:#fff;font-weight:700;font-size:12.5px;cursor:pointer;}
+  .btn-checkout{display:block;width:100%;text-align:center;padding:15px;border-radius:999px;background:var(--amber);color:var(--navy-900);font-weight:700;font-size:14px;margin-top:18px;}
+
+  @media(max-width:860px){.cart-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-bar">
+    <a href="index.html" class="logo"><span class="logo-mark">DF</span>Dehra <span>Fashion</span> Hub</a>
+    <a href="shop.html" class="icon-btn">Continue Shopping</a>
+  </div>
+</header>
+
+<div class="container">
+  <h1 style="font-family:var(--ff-display);font-size:28px;margin:0 0 22px;">Your Shopping Bag</h1>
+  <div class="cart-grid">
+    <div class="panel" id="cartItems"></div>
+    <div class="panel">
+      <h3 style="font-family:var(--ff-display);margin:0 0 16px;">Order Summary</h3>
+      <div class="sum-row"><span>Subtotal</span><strong id="subTotal">₹0</strong></div>
+      <div class="sum-row"><span>Dehradun Express Delivery</span><strong id="shipFee">FREE</strong></div>
+      <div class="sum-row" style="color:#065F46;"><span>Promo Discount</span><strong id="discAmt">- ₹0</strong></div>
+
+      <div class="promo-box">
+        <input type="text" id="promoInput" placeholder="Try code DOON15" />
+        <button type="button" class="btn-dark" onclick="applyPromo()">Apply</button>
+      </div>
+      <div id="promoMsg" style="font-size:12px;color:#065F46;font-weight:600;"></div>
+
+      <div class="sum-total"><span>Total Payable</span><span id="grandTotal">₹0</span></div>
+      <a href="checkout.html" class="btn-checkout" id="checkoutBtn">Proceed to Checkout</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  let discountRate = 0;
+
+  function getCart() {
+    return JSON.parse(localStorage.getItem('dfh_cart') || '[]');
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem('dfh_cart', JSON.stringify(cart));
+    renderCart();
+  }
+
+  function changeQty(idx, delta) {
+    const cart = getCart();
+    cart[idx].qty += delta;
+    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    saveCart(cart);
+  }
+
+  function applyPromo() {
+    const code = document.getElementById('promoInput').value.trim().toUpperCase();
+    const msg = document.getElementById('promoMsg');
+    if (code === 'DOON15') {
+      discountRate = 0.15;
+      msg.style.color = '#065F46';
+      msg.textContent = '15% Dehradun Club discount applied!';
+    } else {
+      discountRate = 0;
+      msg.style.color = '#EF4444';
+      msg.textContent = 'Invalid code. Try DOON15.';
+    }
+    renderCart();
+  }
+
+  function renderCart() {
+    const cart = getCart();
+    const box = document.getElementById('cartItems');
+
+    if (!cart.length) {
+      box.innerHTML = `<p style="color:var(--ink-soft);">Your shopping bag is currently empty. <a href="shop.html" style="color:var(--amber);font-weight:700;">Browse clothes →</a></p>`;
+      document.getElementById('subTotal').textContent = '₹0';
+      document.getElementById('discAmt').textContent = '- ₹0';
+      document.getElementById('grandTotal').textContent = '₹0';
+      document.getElementById('checkoutBtn').style.display = 'none';
+      return;
+    }
+
+    document.getElementById('checkoutBtn').style.display = 'block';
+    box.innerHTML = cart.map((item, i) => `
+      <div class="cart-item">
+        <div>
+          <strong style="font-family:var(--ff-display);font-size:15px;">${item.name}</strong>
+          <div style="font-size:12.5px;color:var(--ink-soft);margin-top:4px;">Size: ${item.size} · ₹${item.price.toLocaleString('en-IN')} each</div>
+        </div>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty(${i}, -1)">−</button>
+          <strong style="min-width:20px;text-align:center;">${item.qty}</strong>
+          <button class="qty-btn" onclick="changeQty(${i}, 1)">+</button>
+        </div>
+      </div>
+    `).join('');
+
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const shipping = subtotal >= 1499 ? 0 : 99;
+    const discount = Math.round(subtotal * discountRate);
+    const total = subtotal + shipping - discount;
+
+    document.getElementById('subTotal').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+    document.getElementById('shipFee').textContent = shipping === 0 ? 'FREE' : `₹${shipping}`;
+    document.getElementById('discAmt').textContent = `- ₹${discount.toLocaleString('en-IN')}`;
+    document.getElementById('grandTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+    localStorage.setItem('dfh_last_total', total);
+  }
+
+  renderCart();
+</script>
+</body>
+</html>
