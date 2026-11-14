@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shop Collection – Dehra Fashion Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#111827;--navy-900:#0B0F1A;--navy-700:#1F2937;
+    --amber:#F59E0B;--white:#FFFFFF;--cream:#FAF7F1;--ink-soft:#5B6472;--ink-faint:#9CA3AF;--line:#ECE7DD;
+    --shadow-sm:0 2px 10px rgba(17,24,39,.06);--ff-display:'Poppins',sans-serif;--ff-body:'Montserrat',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--ff-body);color:var(--navy);background:var(--cream);}
+  a{text-decoration:none;color:inherit;}
+  button,select,input{font-family:inherit;}
+  .site-header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40;}
+  .header-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1240px;margin:0 auto;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--ff-display);font-weight:800;font-size:19px;}
+  .logo-mark{width:36px;height:36px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--amber);}
+  .logo span{color:var(--amber);}
+  .icon-btn{padding:8px 14px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:13px;font-weight:700;}
+  .badge{background:var(--amber);color:var(--navy-900);font-size:11px;font-weight:800;padding:2px 7px;border-radius:999px;}
+
+  .container{max-width:1240px;margin:0 auto;padding:32px 28px;}
+  .toolbar{
+    display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;
+    background:#fff;padding:18px 22px;border-radius:16px;border:1px solid var(--line);margin-bottom:28px;
+  }
+  .filter-pills{display:flex;flex-wrap:wrap;gap:8px;}
+  .pill{padding:8px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--cream);font-size:12.5px;font-weight:700;cursor:pointer;}
+  .pill.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .search-sort{display:flex;gap:10px;flex-wrap:wrap;}
+  .input-box{padding:9px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:13px;}
+
+  .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .prod-card{background:#fff;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;}
+  .prod-thumb{height:200px;background:linear-gradient(145deg,#E5E7EB,#F3F4F6);display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-weight:700;font-size:14px;padding:16px;text-align:center;position:relative;}
+  .prod-badge{position:absolute;top:12px;left:12px;background:var(--navy);color:var(--amber);font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:999px;}
+  .prod-body{padding:18px;flex:1;display:flex;flex-direction:column;}
+  .prod-cat{font-size:11px;font-weight:700;color:var(--ink-faint);text-transform:uppercase;}
+  .prod-title{font-family:var(--ff-display);font-size:15px;font-weight:700;margin:4px 0 8px;}
+  .prod-price{font-size:16px;font-weight:800;margin-bottom:14px;}
+  .prod-price del{font-size:12px;color:var(--ink-faint);font-weight:500;margin-left:6px;}
+  .prod-actions{margin-top:auto;display:flex;gap:8px;}
+  .btn-sm{flex:1;padding:10px;border-radius:10px;font-size:12.5px;font-weight:700;border:1.5px solid var(--line);background:#fff;cursor:pointer;text-align:center;}
+  .btn-sm.primary{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .btn-sm.primary:hover{background:var(--amber);color:var(--navy-900);border-color:var(--amber);}
+
+  @media(max-width:960px){.prod-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:540px){.prod-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-bar">
+    <a href="index.html" class="logo"><span class="logo-mark">DF</span>Dehra <span>Fashion</span> Hub</a>
+    <div style="display:flex;gap:12px;">
+      <a href="index.html" class="icon-btn">Home</a>
+      <a href="cart.html" class="icon-btn">Bag <span class="badge" id="cartCount">0</span></a>
+      <a href="login.html" class="icon-btn" id="userNavBtn">Sign In</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <h1 style="font-family:var(--ff-display);font-size:30px;margin:0 0 20px;">All Clothing &amp; Collections</h1>
+
+  <div class="toolbar">
+    <div class="filter-pills" id="catPills">
+      <button class="pill active" data-cat="All">All</button>
+      <button class="pill" data-cat="Men">Men</button>
+      <button class="pill" data-cat="Women">Women</button>
+      <button class="pill" data-cat="Winter">Winter</button>
+      <button class="pill" data-cat="Ethnic">Ethnic</button>
+    </div>
+    <div class="search-sort">
+      <input type="text" id="searchInput" class="input-box" placeholder="Search shirts, kurtas..." />
+      <select id="sortSelect" class="input-box">
+        <option value="featured">Sort: Featured</option>
+        <option value="low">Price: Low to High</option>
+        <option value="high">Price: High to Low</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="prod-grid" id="catalogGrid"></div>
+</div>
+
+<script>
+  const CATALOG = [
+    { id: 1, name: "Rajpur Handloom Linen Shirt", cat: "Men", price: 1699, mrp: 2299, badge: "Bestseller" },
+    { id: 2, name: "Mussoorie Merino Knit Cardigan", cat: "Women", price: 2499, mrp: 3199, badge: "Winter Edit" },
+    { id: 3, name: "Kalsi Indigo Cotton Kurta Set", cat: "Ethnic", price: 2199, mrp: 2899, badge: "Handcrafted" },
+    { id: 4, name: "Doon Valley Quilted Overshirt", cat: "Winter", price: 2799, mrp: 3499, badge: "New Drop" },
+    { id: 5, name: "Chanderi Silk Festive Anarkali", cat: "Ethnic", price: 3899, mrp: 4999, badge: "Festive" },
+    { id: 6, name: "Pleated Olive Tapered Chinos", cat: "Men", price: 1499, mrp: 1999, badge: "Everyday" },
+    { id: 7, name: "Rishikesh Breeze Cotton Co-ord", cat: "Women", price: 1899, mrp: 2499, badge: "Trending" },
+    { id: 8, name: "Himalayan Fleece Zip Jacket", cat: "Winter", price: 2299, mrp: 2999, badge: "Warmth" }
+  ];
+
+  const params = new URLSearchParams(window.location.search);
+  let activeCat = params.get('cat') || 'All';
+
+  function updateHeader() {
+    const user = localStorage.getItem('dfh_user');
+    if (user) {
+      const btn = document.getElementById('userNavBtn');
+      btn.textContent = `Hi, ${user}`;
+      btn.href = 'profile.html';
+    }
+    const cart = JSON.parse(localStorage.getItem('dfh_cart') || '[]');
+    document.getElementById('cartCount').textContent = cart.reduce((s, i) => s + i.qty, 0);
+  }
+
+  function addToCart(id) {
+    const item = CATALOG.find(p => p.id === id);
+    const cart = JSON.parse(localStorage.getItem('dfh_cart') || '[]');
+    const found = cart.find(c => c.id === id && c.size === 'M');
+    if (found) found.qty += 1;
+    else cart.push({ ...item, size: 'M', qty: 1 });
+    localStorage.setItem('dfh_cart', JSON.stringify(cart));
+    updateHeader();
+    alert(`${item.name} added to bag.`);
+  }
+
+  function render() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const sort = document.getElementById('sortSelect').value;
+
+    let items = CATALOG.filter(p =>
+      (activeCat === 'All' || p.cat === activeCat) &&
+      p.name.toLowerCase().includes(query)
+    );
+
+    if (sort === 'low') items.sort((a, b) => a.price - b.price);
+    if (sort === 'high') items.sort((a, b) => b.price - a.price);
+
+    document.getElementById('catalogGrid').innerHTML = items.length ? items.map(p => `
+      <div class="prod-card">
+        <a href="product-details.html?id=${p.id}" class="prod-thumb">
+          <span class="prod-badge">${p.badge}</span>
+          ${p.name}
+        </a>
+        <div class="prod-body">
+          <span class="prod-cat">${p.cat}</span>
+          <a href="product-details.html?id=${p.id}" class="prod-title">${p.name}</a>
+          <div class="prod-price">₹${p.price.toLocaleString('en-IN')} <del>₹${p.mrp.toLocaleString('en-IN')}</del></div>
+          <div class="prod-actions">
+            <a href="product-details.html?id=${p.id}" class="btn-sm">Details</a>
+            <button class="btn-sm primary" onclick="addToCart(${p.id})">+ Bag</button>
+          </div>
+        </div>
+      </div>
+    `).join('') : `<p style="grid-column:1/-1;text-align:center;color:var(--ink-soft);">No garments match your filter.</p>`;
+  }
+
+  document.querySelectorAll('.pill').forEach(btn => {
+    if (btn.dataset.cat === activeCat) {
+      document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCat = btn.dataset.cat;
+      render();
+    });
+  });
+
+  document.getElementById('searchInput').addEventListener('input', render);
+  document.getElementById('sortSelect').addEventListener('change', render);
+
+  updateHeader();
+  render();
+</script>
+</body>
+</html>
