@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Order Confirmed – Dehra Fashion Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#111827;--navy-900:#0B0F1A;--amber:#F59E0B;--white:#FFFFFF;--cream:#FAF7F1;
+    --ink-soft:#5B6472;--line:#ECE7DD;--shadow-md:0 12px 30px rgba(17,24,39,.10);
+    --ff-display:'Poppins',sans-serif;--ff-body:'Montserrat',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--ff-body);color:var(--navy);background:var(--cream);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+  .card{background:#fff;max-width:520px;width:100%;border-radius:22px;padding:40px;text-align:center;box-shadow:var(--shadow-md);}
+  .check{width:64px;height:64px;border-radius:50%;background:#D1FAE5;color:#065F46;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;margin:0 auto 18px;}
+  h1{font-family:var(--ff-display);font-size:26px;margin:0 0 8px;}
+  p{font-size:14px;color:var(--ink-soft);line-height:1.6;}
+  .order-pill{background:var(--cream);border:1px solid var(--line);padding:12px 18px;border-radius:12px;font-weight:700;margin:20px 0;font-size:14px;}
+  .actions{display:flex;gap:12px;margin-top:24px;}
+  .btn{flex:1;padding:13px 18px;border-radius:999px;font-size:13.5px;font-weight:700;text-decoration:none;}
+  .btn-primary{background:var(--amber);color:var(--navy-900);}
+  .btn-outline{border:1.5px solid var(--line);color:var(--navy);}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="check">✓</div>
+  <h1>Order Confirmed!</h1>
+  <p>Thank you for shopping with Dehra Fashion Hub. Our Rajpur Road dispatch team is packing your items for express delivery.</p>
+  <div class="order-pill">Order ID: <span id="orderIdDisplay">DFH-482910</span></div>
+  <div class="actions">
+    <a href="profile.html" class="btn btn-primary">Track Order</a>
+    <a href="shop.html" class="btn btn-outline">Continue Shopping</a>
+  </div>
+</div>
+<script>
+  const id = localStorage.getItem('dfh_latest_order');
+  if (id) document.getElementById('orderIdDisplay').textContent = id;
+</script>
+</body>
+</html>
