@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout – Dehra Fashion Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#111827;--navy-900:#0B0F1A;--amber:#F59E0B;--white:#FFFFFF;--cream:#FAF7F1;
+    --ink-soft:#5B6472;--line:#ECE7DD;--shadow-md:0 12px 30px rgba(17,24,39,.10);
+    --ff-display:'Poppins',sans-serif;--ff-body:'Montserrat',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--ff-body);color:var(--navy);background:var(--cream);}
+  a{text-decoration:none;color:inherit;}
+  input,select,button{font-family:inherit;}
+  .site-header{background:#fff;border-bottom:1px solid var(--line);}
+  .header-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1240px;margin:0 auto;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--ff-display);font-weight:800;font-size:19px;}
+  .logo-mark{width:36px;height:36px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--amber);}
+  .logo span{color:var(--amber);}
+
+  .container{max-width:960px;margin:32px auto;padding:0 28px;}
+  .box{background:#fff;border-radius:20px;padding:34px;box-shadow:var(--shadow-md);}
+  h2{font-family:var(--ff-display);font-size:22px;margin:0 0 18px;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;}
+  .input{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:13.5px;}
+  .pay-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 24px;}
+  .pay-card{border:1.5px solid var(--line);border-radius:12px;padding:14px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;}
+  .btn-place{width:100%;padding:16px;border:none;border-radius:999px;background:var(--amber);color:var(--navy-900);font-weight:800;font-size:15px;cursor:pointer;}
+
+  @media(max-width:680px){.grid-2,.pay-opts{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-bar">
+    <a href="index.html" class="logo"><span class="logo-mark">DF</span>Dehra <span>Fashion</span> Hub</a>
+    <a href="cart.html" style="font-size:13px;font-weight:700;">← Back to Bag</a>
+  </div>
+</header>
+
+<div class="container">
+  <form class="box" id="checkoutForm">
+    <h2>Delivery Address (Dehradun &amp; Uttarakhand)</h2>
+    <div class="grid-2">
+      <div><label>Full Name</label><input type="text" id="custName" class="input" required placeholder="e.g. Aarav Negi" /></div>
+      <div><label>Mobile Number</label><input type="tel" id="custPhone" class="input" required placeholder="9876543210" /></div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <label>House / Street Address</label>
+      <input type="text" id="custAddr" class="input" required placeholder="Flat 4B, Canal Road, Jakhan" />
+    </div>
+    <div class="grid-2">
+      <div>
+        <label>Locality / Zone</label>
+        <select id="custArea" class="input">
+          <option>Rajpur Road / Jakhan (Same-Day)</option>
+          <option>Vasant Vihar / Ballupur (Same-Day)</option>
+          <option>Clement Town / Subhash Nagar (Same-Day)</option>
+          <option>Sahastradhara Road (Same-Day)</option>
+          <option>Mussoorie / Rishikesh / Haridwar (Next-Day)</option>
+        </select>
+      </div>
+      <div><label>PIN Code</label><input type="text" class="input" value="248001" required /></div>
+    </div>
+
+    <h2 style="margin-top:26px;">Payment Method</h2>
+    <div class="pay-opts">
+      <label class="pay-card"><input type="radio" name="pay" value="UPI (GPay / PhonePe)" checked /> UPI / QR</label>
+      <label class="pay-card"><input type="radio" name="pay" value="Credit / Debit Card" /> Card</label>
+      <label class="pay-card"><input type="radio" name="pay" value="Cash on Delivery" /> Cash on Delivery</label>
+    </div>
+
+    <button type="submit" class="btn-place" id="placeBtn">Place Order</button>
+  </form>
+</div>
+
+<script>
+  const user = localStorage.getItem('dfh_user');
+  if (user) document.getElementById('custName').value = user;
+
+  const total = localStorage.getItem('dfh_last_total') || '1699';
+  document.getElementById('placeBtn').textContent = `Place Order · ₹${Number(total).toLocaleString('en-IN')}`;
+
+  document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const cart = JSON.parse(localStorage.getItem('dfh_cart') || '[]');
+    const orders = JSON.parse(localStorage.getItem('dfh_orders') || '[]');
+    const orderId = 'DFH-' + Math.floor(100000 + Math.random() * 900000);
+
+    orders.unshift({
+      id: orderId,
+      date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+      total: Number(total),
+      status: 'Confirmed · Dispatched from Rajpur Road',
+      items: cart
+    });
+
+    localStorage.setItem('dfh_orders', JSON.stringify(orders));
+    localStorage.setItem('dfh_latest_order', orderId);
+    localStorage.removeItem('dfh_cart');
+    window.location.href = 'order-confirmation.html';
+  });
+</script>
+</body>
+</html>
