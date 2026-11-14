@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dehra Fashion Hub – Trendy Fashion in Dehradun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#111827;
+    --navy-900:#0B0F1A;
+    --navy-700:#1F2937;
+    --amber:#F59E0B;
+    --amber-light:#FCD34D;
+    --red:#EF4444;
+    --white:#FFFFFF;
+    --cream:#FAF7F1;
+    --ink-soft:#5B6472;
+    --ink-faint:#9CA3AF;
+    --line:#ECE7DD;
+    --shadow-sm:0 2px 10px rgba(17,24,39,.06);
+    --shadow-md:0 12px 30px rgba(17,24,39,.10);
+    --ff-display:'Poppins',sans-serif;
+    --ff-body:'Montserrat',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--ff-body);
+    color:var(--navy);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block;}
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+  ul{list-style:none;margin:0;padding:0;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:var(--ff-body);font-size:12px;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--amber);display:inline-flex;align-items:center;gap:8px;
+  }
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--amber);display:inline-block;}
+  h1,h2,h3{font-family:var(--ff-display);margin:0;letter-spacing:-.01em;}
+  .section-head{max-width:560px;margin-bottom:40px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,38px);color:var(--navy);margin-top:10px;line-height:1.15;}
+  .section-head p{color:var(--ink-soft);font-size:15.5px;line-height:1.6;margin-top:12px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:var(--ff-body);font-weight:700;font-size:14px;letter-spacing:.01em;
+    padding:14px 26px;border-radius:999px;border:1.5px solid transparent;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn--primary{background:var(--amber);color:var(--navy-900);}
+  .btn--primary:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(245,158,11,.35);}
+  .btn--ghost{background:transparent;color:var(--white);border-color:rgba(255,255,255,.45);}
+  .btn--ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-2px);}
+  .icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1240px;margin:0 auto;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--ff-display);font-weight:800;font-size:19px;color:var(--navy);}
+  .logo-mark{
+    width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--navy-700));
+    display:flex;align-items:center;justify-content:center;color:var(--amber);font-weight:800;font-size:16px;flex:none;
+  }
+  .logo span{color:var(--amber);}
+  .main-nav ul{display:flex;gap:34px;}
+  .main-nav a{font-size:14px;font-weight:600;color:var(--navy-700);position:relative;padding:4px 0;}
+  .main-nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--amber);transition:width .2s ease;}
+  .main-nav a:hover::after{width:100%;}
+  .header-actions{display:flex;align-items:center;gap:8px;}
+  .icon-btn{
+    position:relative;width:40px;height:40px;border-radius:50%;border:none;background:transparent;
+    display:flex;align-items:center;justify-content:center;color:var(--navy);
+  }
+  .icon-btn:hover{background:var(--cream);}
+  .badge{
+    position:absolute;top:2px;right:2px;min-width:16px;height:16px;border-radius:50%;background:var(--red);color:#fff;
+    font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 3px;
+  }
+  .login-pill{
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;margin-left:6px;
+    border:1.5px solid var(--navy);color:var(--navy);border-radius:999px;
+    padding:8px 20px;font-size:13px;font-weight:700;background:transparent;
+    transition:background .18s ease,color .18s ease;
+  }
+  .login-pill:hover{background:var(--navy);color:#fff;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;background:radial-gradient(120% 140% at 85% -10%, #1F2937 0%, var(--navy) 45%, var(--navy-900) 100%);
+    color:#fff;overflow:hidden;padding:88px 0 0;
+  }
+  .hero-inner{
+    max-width:1240px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;
+  }
+  .hero-copy .eyebrow{color:var(--amber-light);}
+  .hero-copy .eyebrow::before{background:var(--amber-light);}
+  .hero-copy h1{font-size:clamp(34px,4.6vw,58px);line-height:1.06;margin-top:18px;font-weight:800;}
+  .hero-copy h1 em{color:var(--amber);font-style:normal;}
+  .hero-copy p{margin-top:20px;font-size:16.5px;line-height:1.65;color:#D6DAE3;max-width:460px;}
+  .hero-ctas{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+  .hero-trust{display:flex;gap:26px;margin-top:46px;flex-wrap:wrap;}
+  .hero-trust div{display:flex;align-items:center;gap:9px;font-size:12.5px;color:#C7CCD6;font-weight:600;}
+  .hero-trust svg{color:var(--amber);}
+
+  .hero-visual{position:relative;height:440px;}
+  .collage-card{
+    position:absolute;border-radius:18px;box-shadow:0 24px 50px rgba(0,0,0,.45);overflow:hidden;border:1px solid rgba(255,255,255,.08);
+  }
+  .collage-card .ph{width:100%;height:100%;display:flex;align-items:flex-end;padding:16px;position:relative;}
+  .collage-card .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%, rgba(0,0,0,.55) 100%);}
+  .collage-card .ph span{position:relative;z-index:1;color:#fff;font-weight:700;font-size:13px;font-family:var(--ff-display);}
+  .c1{width:230px;height:300px;top:8px;left:10px;background:linear-gradient(160deg,#F59E0B,#B45309);transform:rotate(-6deg);}
+  .c2{width:220px;height:280px;top:60px;right:0;background:linear-gradient(160deg,#374151,#111827);transform:rotate(5deg);}
+  .c3{width:190px;height:160px;bottom:0;left:90px;background:linear-gradient(160deg,#EF4444,#7F1D1D);transform:rotate(-3deg);}
+  .float-badge{
+    position:absolute;bottom:18px;right:30px;background:#fff;color:var(--navy);border-radius:14px;
+    padding:12px 16px;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:10px;z-index:2;max-width:190px;
+  }
+  .float-badge svg{color:var(--amber);flex:none;}
+  .float-badge strong{display:block;font-size:12.5px;font-family:var(--ff-display);}
+  .float-badge small{color:var(--ink-soft);font-size:11px;}
+
+  .ridge{display:block;width:100%;height:54px;margin-top:64px;}
+  .ridge polyline{fill:none;stroke:var(--amber);stroke-width:2;}
+  .ridge circle{fill:var(--amber);}
+  .ridge .ridge-fill{fill:var(--white);stroke:none;}
+  .ridge-label{font-family:var(--ff-body);font-size:9px;fill:#D6DAE3;letter-spacing:.08em;}
+
+  /* ---------- Categories ---------- */
+  .categories{padding:84px 0 70px;background:var(--white);}
+  .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,150px);gap:18px;}
+  .cat-card{
+    position:relative;border-radius:16px;overflow:hidden;display:flex;align-items:flex-end;padding:18px;color:#fff;
+    background:linear-gradient(155deg,var(--navy-700),var(--navy-900));transition:transform .25s ease;
+  }
+  .cat-card:hover{transform:translateY(-4px);}
+  .cat-card .icon{position:relative;z-index:1;color:var(--amber-light);margin-bottom:auto;margin-top:4px;}
+  .cat-card .label{position:relative;z-index:1;}
+  .cat-card .label strong{display:block;font-family:var(--ff-display);font-size:15.5px;}
+  .cat-card .label small{font-size:11.5px;color:#E5E7EB;display:flex;align-items:center;gap:4px;margin-top:2px;}
+  .cat-1{grid-column:1/3;grid-row:1/3;background:linear-gradient(155deg,#7C2D12,#111827);}
+  .cat-2{grid-column:3/5;grid-row:1/2;background:linear-gradient(155deg,#1E3A8A,#111827);}
+  .cat-3{grid-column:3/4;grid-row:2/3;background:linear-gradient(155deg,#065F46,#111827);}
+  .cat-4{grid-column:4/5;grid-row:2/3;background:linear-gradient(155deg,#7F1D1D,#111827);}
+
+  /* ---------- Products ---------- */
+  .products{padding:80px 0;background:var(--cream);}
+  .products-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:38px;flex-wrap:wrap;gap:16px;}
+  .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .product-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;}
+  .p-media{position:relative;height:230px;display:flex;align-items:center;justify-content:center;}
+  .p-media .icon{width:54px;height:54px;color:rgba(255,255,255,.85);stroke-width:1.3;}
+  .p-tag{position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-size:10.5px;font-weight:700;padding:4px 9px;border-radius:6px;}
+  .p-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .p-cat{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);font-weight:700;}
+  .p-name{font-family:var(--ff-display);font-size:15px;font-weight:600;color:var(--navy);}
+  .p-price{display:flex;align-items:baseline;gap:8px;margin-top:2px;}
+  .p-price .now{font-family:var(--ff-display);font-weight:700;font-size:17px;color:var(--navy);}
+  .p-price .was{font-size:12.5px;color:var(--ink-faint);text-decoration:line-through;}
+  .p-actions{margin-top:auto;padding-top:10px;}
+  .add-cart{
+    width:100%;border:1.5px solid var(--navy);background:transparent;color:var(--navy);border-radius:10px;padding:10px;
+    font-weight:700;font-size:13px;
+  }
+  .add-cart:hover{background:var(--navy);color:#fff;}
+  .pm-1{background:linear-gradient(155deg,#B45309,#78350F);}
+  .pm-2{background:linear-gradient(155deg,#1E3A8A,#1E293B);}
+  .pm-3{background:linear-gradient(155deg,#0F766E,#134E4A);}
+  .pm-4{background:linear-gradient(155deg,#9D174D,#581C2E);}
+
+  /* ---------- Footer ---------- */
+  .site-footer{background:var(--navy-900);color:#C7CCD6;padding:64px 0 24px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:36px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08);}
+  .footer-brand .logo{color:#fff;}
+  .footer-brand p{font-size:13px;line-height:1.7;color:#9AA2AF;margin-top:14px;max-width:280px;}
+  .footer-col h4{font-family:var(--ff-display);font-size:13.5px;color:#fff;margin-bottom:18px;}
+  .footer-col ul li{margin-bottom:11px;}
+  .footer-col a{font-size:13px;color:#9AA2AF;}
+  .footer-col a:hover{color:var(--amber-light);}
+  .footer-bottom{padding-top:22px;font-size:12px;color:#7C8493;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1080px){
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-visual{height:380px;margin-top:20px;}
+    .product-grid{grid-template-columns:repeat(2,1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:860px){
+    .main-nav{display:none;}
+    .cat-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,150px);}
+    .cat-1{grid-column:1/3;grid-row:1/2;}
+    .cat-2{grid-column:1/2;grid-row:2/3;}
+    .cat-3{grid-column:2/3;grid-row:2/3;}
+    .cat-4{grid-column:1/3;grid-row:3/4;}
+  }
+  @media (max-width:600px){
+    .product-grid{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .header-bar{padding:14px 16px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-bar">
+    <a href="index.html" class="logo"><span class="logo-mark">DF</span>Dehra <span>Fashion</span> Hub</a>
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#products">Shop</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="icon-btn" aria-label="Wishlist">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+        <span class="badge" id="wishCount">2</span>
+      </button>
+      <button type="button" class="icon-btn" aria-label="Cart">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        <span class="badge" id="cartCount">0</span>
+      </button>
+      <a href="login.html" class="login-pill" id="headerLoginLink">Login</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">Dehradun's Premier Fashion Destination</span>
+        <h1>Fashion That<br>Defines Your <em>Style</em></h1>
+        <p>Discover exclusive collections designed for every occasion. Shop the latest trends at Dehra Fashion Hub and enjoy a seamless online shopping experience in Dehradun.</p>
+        <div class="hero-ctas">
+          <a href="#products" class="btn btn--primary">Shop Now</a>
+          <a href="login.html" class="btn btn--ghost">Member Login</a>
+        </div>
+        <div class="hero-trust">
+          <div><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Premium Quality</div>
+          <div><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><rect x="1" y="7" width="15" height="13" rx="2"/><path d="M16 10h4l3 3v4h-7z"/><circle cx="6" cy="20" r="2"/><circle cx="18" cy="20" r="2"/></svg>Fast Delivery in Dehradun</div>
+          <div><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>Secure Payments</div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="collage-card c1"><div class="ph"><span>Ethnic Edit</span></div></div>
+        <div class="collage-card c2"><div class="ph"><span>Men's Edit</span></div></div>
+        <div class="collage-card c3"><div class="ph"><span>Accessories</span></div></div>
+        <div class="float-badge">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24"><rect x="1" y="7" width="15" height="13" rx="2"/><path d="M16 10h4l3 3v4h-7z"/><circle cx="6" cy="20" r="2"/><circle cx="18" cy="20" r="2"/></svg>
+          <div><strong>Same-Day Dispatch</strong><small>Across Dehradun city limits</small></div>
+        </div>
+      </div>
+    </div>
+    <svg class="ridge" viewBox="0 0 1440 70" preserveAspectRatio="none">
+      <polyline points="0,55 90,30 180,48 270,18 360,42 450,12 540,38 630,8 720,34 810,16 900,44 990,22 1080,40 1170,14 1260,36 1350,20 1440,32"/>
+      <circle cx="630" cy="8" r="3.5"/>
+      <text class="ridge-label" x="645" y="6">DEHRADUN · 30.32°N</text>
+      <path class="ridge-fill" d="M0,70 0,62 90,38 180,55 270,28 360,50 450,22 540,46 630,18 720,42 810,26 900,52 990,32 1080,48 1170,24 1260,44 1350,30 1440,40 1440,70 Z"/>
+    </svg>
+  </section>
+
+  <section class="categories" id="categories">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Curated For Every You</span>
+        <h2>Shop by Category</h2>
+        <p>From everyday casuals to festive ethnic wear — find a collection built for how Dehradun actually dresses.</p>
+      </div>
+      <div class="cat-grid">
+        <a href="#products" class="cat-card cat-1">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M16 4l-2 2-2-2-6 2v5h2v9h12v-9h2V6z"/></svg>
+          <div class="label"><strong>Women's Collection</strong><small>Kurtas, sarees, dresses &amp; more</small></div>
+        </a>
+        <a href="#products" class="cat-card cat-2">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M6 4l3 2 3-2 3 2 3-2 2 3-3 2v11H4V9L1 7z"/></svg>
+          <div class="label"><strong>Men's Collection</strong><small>Shirts, jackets &amp; ethnic sets</small></div>
+        </a>
+        <a href="#products" class="cat-card cat-3">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="6" r="3"/><path d="M6 21l2-9h8l2 9"/><path d="M9 12l3 3 3-3"/></svg>
+          <div class="label"><strong>Kids Fashion</strong><small>Comfort-first everyday wear</small></div>
+        </a>
+        <a href="#products" class="cat-card cat-4">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="9" r="2"/></svg>
+          <div class="label"><strong>Accessories</strong><small>Bags, jewellery &amp; footwear</small></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="products" id="products">
+    <div class="wrap">
+      <div class="products-head">
+        <div class="section-head" style="margin-bottom:0;">
+          <span class="eyebrow">Hand-Picked This Week</span>
+          <h2>Featured Products</h2>
+        </div>
+      </div>
+
+      <div class="product-grid">
+        <article class="product-card">
+          <div class="p-media pm-1">
+            <span class="p-tag">-32% OFF</span>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M16 4l-2 2-2-2-6 2v5h2v9h12v-9h2V6z"/></svg>
+          </div>
+          <div class="p-body">
+            <span class="p-cat">Ethnic Wear</span>
+            <h3 class="p-name">Embroidered Anarkali Kurta</h3>
+            <div class="p-price"><span class="now">₹1,499</span><span class="was">₹2,199</span></div>
+            <div class="p-actions"><button type="button" class="add-cart">Add to Cart</button></div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="p-media pm-2">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M6 4l3 2 3-2 3 2 3-2 2 3-3 2v11H4V9L1 7z"/></svg>
+          </div>
+          <div class="p-body">
+            <span class="p-cat">Men's Casual</span>
+            <h3 class="p-name">Slim Fit Linen Shirt</h3>
+            <div class="p-price"><span class="now">₹899</span></div>
+            <div class="p-actions"><button type="button" class="add-cart">Add to Cart</button></div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="p-media pm-3">
+            <span class="p-tag">NEW</span>
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="6" r="3"/><path d="M6 21l2-9h8l2 9"/><path d="M9 12l3 3 3-3"/></svg>
+          </div>
+          <div class="p-body">
+            <span class="p-cat">Kids</span>
+            <h3 class="p-name">Dino Print Hooded Sweatshirt</h3>
+            <div class="p-price"><span class="now">₹699</span></div>
+            <div class="p-actions"><button type="button" class="add-cart">Add to Cart</button></div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="p-media pm-4">
+            <span class="p-tag">-30% OFF</span>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M16 4l-2 2-2-2-6 2v5h2v9h12v-9h2V6z"/></svg>
+          </div>
+          <div class="p-body">
+            <span class="p-cat">Ethnic Wear</span>
+            <h3 class="p-name">Banarasi Silk Saree</h3>
+            <div class="p-price"><span class="now">₹2,799</span><span class="was">₹3,999</span></div>
+            <div class="p-actions"><button type="button" class="add-cart">Add to Cart</button></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer" id="contact">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#home" class="logo"><span class="logo-mark">DF</span>Dehra <span>Fashion</span> Hub</a>
+          <p>Curated everyday and festive wear crafted for modern wardrobes across Dehradun.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#products">New Arrivals</a></li>
+            <li><a href="#categories">Collections</a></li>
+            <li><a href="login.html">Member Login</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Customer Care</h4>
+          <ul>
+            <li><a href="#contact">Track Your Order</a></li>
+            <li><a href="#contact">7-Day Returns</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Visit Us</h4>
+          <ul>
+            <li>Rajpur Road, Dehradun 248001</li>
+            <li>+91 135 265 4890</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Dehra Fashion Hub. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script>
+  // Increment cart badge when clicking Add to Cart
+  let cartItems = 0;
+  const cartCount = document.getElementById('cartCount');
+  document.querySelectorAll('.add-cart').forEach(btn => {
+    btn.addEventListener('click', () => {
+      cartItems++;
+      cartCount.textContent = cartItems;
+      const original = btn.textContent;
+      btn.textContent = 'Added ✓';
+      setTimeout(() => btn.textContent = original, 900);
+    });
+  });
+
+  // Reflect signed-in state from login.html
+  const savedUser = localStorage.getItem('dfh_user');
+  const loginLink = document.getElementById('headerLoginLink');
+  if (savedUser && loginLink) {
+    loginLink.textContent = `Hi, ${savedUser}`;
+    loginLink.title = 'Click to switch account or sign out';
+    loginLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (confirm(`Sign out of ${savedUser}?`)) {
+        localStorage.removeItem('dfh_user');
+        window.location.reload();
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
